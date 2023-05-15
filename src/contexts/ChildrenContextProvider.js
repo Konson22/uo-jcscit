@@ -1,5 +1,5 @@
 import { useState, useContext, createContext, useEffect } from 'react'
-import axiosInstance from '../helpers/axiosInstance'
+import axios from 'axios'
  
 
 const apiContext = createContext()
@@ -21,7 +21,7 @@ export default function ChildrenContextProvider({children}) {
     async function fetchItems(){
       setLoading(true)
       try{
-        const results = await axiosInstance('/children').then(res => res)
+        const results = await axios('https://api.github.com/users').then(res => res)
         isMuted && setChildren(results.data)
       }catch(error){
         if(error.status === 404 || error.status === 403 || error.status === 500){
